@@ -9,7 +9,7 @@ const gpt4 = new ChatOpenAI({
   temperature: 0.2,
   streaming: true,
   verbose: true,
-  openAIApiKey: "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",
+  openAIApiKey: process.env.OPEN_AI_KEY,
 });
 
 // Prompts
