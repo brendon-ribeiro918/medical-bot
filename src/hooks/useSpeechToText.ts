@@ -1,27 +1,22 @@
-"use client";
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 
 const useSpeechRecognition = () => {
+  const isBrowserUnsupported =
+    typeof window === "undefined" ||
+    !("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
   const [recognizedText, setRecognizedText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const [mediaDeviceErr, setMediaDeviceErr] = useState("");
-  const [isBrowserUnsupported, setIsBrowserUnsupported] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsBrowserUnsupported(
-        !("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
-      );
-    }
-  }, []);
+  const [mediaDeviceErr, setMediaDeviceErr] = useState(
+    isBrowserUnsupported ? "Unsupported Browser" : ""
+  );
 
   if (isBrowserUnsupported) {
     return {
       isRecording,
       isBrowserUnsupported,
-      mediaDeviceErr: "Unsupported Browser",
+      mediaDeviceErr,
       setMediaDeviceErr,
       startSpeechRecognition: () => {},
       stopSpeechRecognition: () => {},
