@@ -9,9 +9,14 @@ import { useState } from "react";
 interface Props {
   setTabIndex: Function;
   setRrecordAllowed: Function;
+  setIsNewRecord: Function;
 }
 
-export default function HeaderBar({ setTabIndex, setRrecordAllowed }: Props) {
+export default function HeaderBar({
+  setTabIndex,
+  setRrecordAllowed,
+  setIsNewRecord,
+}: Props) {
   const [isRecording, setIsRecording] = useState(true);
   const { stopSpeechRecognition, startSpeechRecognition } =
     useSpeechRecognition();
@@ -23,6 +28,7 @@ export default function HeaderBar({ setTabIndex, setRrecordAllowed }: Props) {
   };
   const onStart = () => {
     setIsRecording(true);
+    setIsNewRecord(true);
     setRrecordAllowed(true);
     setTabIndex(0);
     startSpeechRecognition();

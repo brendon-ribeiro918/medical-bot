@@ -12,7 +12,9 @@ import CancelImg from "@/assets/images/cancel.svg";
 
 export default function Chatborad() {
   const [tabIndex, setTabIndex] = useState(0);
+  const [isNewRecord, setIsNewRecord] = useState(false);
   const [AADResult, setAADResult] = useState();
+  const [summary, setSummary] = useState();
   const [recordAllowed, setRrecordAllowed] = useState(true);
 
   return (
@@ -26,6 +28,7 @@ export default function Chatborad() {
         <HeaderBar
           setTabIndex={setTabIndex}
           setRrecordAllowed={setRrecordAllowed}
+          setIsNewRecord={setIsNewRecord}
         />
       </div>
       <div className="mt-[16px] w-[370px] mx-[auto]">
@@ -42,7 +45,13 @@ export default function Chatborad() {
           left: tabIndex === 0 ? "0px" : "-100%",
         }}
       >
-        <Transcript setAADResult={setAADResult} recordAllowed={recordAllowed} />
+        <Transcript
+          setAADResult={setAADResult}
+          setSummary={setSummary}
+          recordAllowed={recordAllowed}
+          isNewRecord={isNewRecord}
+          setIsNewRecord={setIsNewRecord}
+        />
       </div>
       <div
         className={`my-[25px] px-[25px] w-[100%] absolute transition-all duration-[1000ms] ease-out`}
@@ -56,11 +65,11 @@ export default function Chatborad() {
       <div
         className={`my-[35px] px-[35px] w-[100%] absolute transition-all duration-[1000ms] ease-out`}
         style={{
-          height: "calc(100% - 155px)",
+          height: "calc(100% - 190px)",
           left: tabIndex === 2 ? "0px" : "-100%",
         }}
       >
-        <CompleteRendu />
+        <CompleteRendu result={summary} />
       </div>
     </div>
   );

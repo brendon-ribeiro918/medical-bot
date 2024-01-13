@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 
 const useSpeechRecognition = () => {
-  const isBrowserUnsupported = !(
-    "SpeechRecognition" in window || "webkitSpeechRecognition" in window
-  );
+  const isBrowserUnsupported =
+    typeof window !== "undefined" &&
+    !("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
   const [recognizedText, setRecognizedText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [mediaDeviceErr, setMediaDeviceErr] = useState(

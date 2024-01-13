@@ -13,35 +13,83 @@ const gpt4 = new ChatOpenAI({
 });
 
 // Prompts
+// const clinicalNoteWriterTemplate = new PromptTemplate({
+//   inputVariables: ["transcript", "input"],
+//   template: `Based on the conversation transcript and doctor's hints provided below, generate a clinical note in the following format:
+//         Diagnosis:
+//         History of Presenting Illness:
+//         Medications (Prescribed): List current medications and note if they are being continued, or if any new ones have been added.
+//         Lab Tests (Ordered):
+//         Please consider any information in the transcript that might be relevant to each of these sections, and use the doctor's hint as a guide.
+
+//         ### Example
+//         Conversation Transcript:
+//         Patient: “I've been taking the Glycomet-GP 1 as you prescribed, doctor, but I'm still feeling quite unwell. My blood pressure readings are all over the place and my sugar levels are high.”
+//         Doctor: “I see, we may need to adjust your medications. Let's add Jalra-OD and Telmis to your regimen and see how you respond.”
+//         Doctor's Hint: The patient has uncontrolled diabetes and hypertension despite adherence to the Glycomet-GP 1.
+//         Clinical Note:
+//         Diagnosis: Uncontrolled Diabetes and Hypertension
+//         History of Presenting Illness: The patient has been adhering to their current medication regimen but the diabetes and hypertension seem uncontrolled.
+//         Medications (Prescribed):
+//         [Continue] Glycomet-GP 1 (tablet) | Glimepiride and Metformin
+//         [Added] Jalra-OD 100mg (tablet) | Vildagliptin
+//         [Added] Telmis 20 (Tablet)
+//         Lab Tests (Ordered): None
+//         Now, based on the following conversation and hints, please generate a clinical note:
+
+//         ### Conversation Transcript
+//         {transcript}
+
+//         ### Doctor's Hint
+//         {input}`,
+// });
+
 const clinicalNoteWriterTemplate = new PromptTemplate({
-  inputVariables: ["transcript", "input"],
-  template: `Based on the conversation transcript and doctor's hints provided below, generate a clinical note in the following format:
-        Diagnosis:
+  inputVariables: ["transcript"],
+  template: `Based on the conversation transcript provided below, generate a clinical note in the following format:
+        Reason for Visit:
+        Symptoms:
         History of Presenting Illness:
-        Medications (Prescribed): List current medications and note if they are being continued, or if any new ones have been added.
-        Lab Tests (Ordered):
-        Please consider any information in the transcript that might be relevant to each of these sections, and use the doctor's hint as a guide.
+        Current Treatment:
+        To have:
+        Prescription: List current medications and note if they are being continued, or if any new ones have been added.
+        Please consider any information in the transcript that might be relevant to each of these sections.
         
         ### Example
         Conversation Transcript:
         Patient: “I've been taking the Glycomet-GP 1 as you prescribed, doctor, but I'm still feeling quite unwell. My blood pressure readings are all over the place and my sugar levels are high.”
         Doctor: “I see, we may need to adjust your medications. Let's add Jalra-OD and Telmis to your regimen and see how you respond.”
-        Doctor's Hint: The patient has uncontrolled diabetes and hypertension despite adherence to the Glycomet-GP 1.
         Clinical Note:
-        Diagnosis: Uncontrolled Diabetes and Hypertension
+        Reason for Visit: Uncontrolled Diabetes and Hypertension
+        Symptoms: 
+          For uncontrolled diabetes:
+          -Increased thirst
+          -Frequent urination
+          -Fatigue
+          -Blurred vision
+          -Slow healing of wounds
+          -Tingling or numbness in the hands or feet
+          -Unexplained weight loss
+          -Irritability
+          For uncontrolled hypertension:
+          -Headaches
+          -Shortness of breath
+          -Nosebleeds
+          -Dizziness
+          -Chest pain
+          -Visual changes
+          -Irregular heartbeat
         History of Presenting Illness: The patient has been adhering to their current medication regimen but the diabetes and hypertension seem uncontrolled.
-        Medications (Prescribed):
+        Current Treatment: Glycomet-GP 1 (tablet) | Glimepiride and Metformin
+        To have: None
+        Prescription:
         [Continue] Glycomet-GP 1 (tablet) | Glimepiride and Metformin
         [Added] Jalra-OD 100mg (tablet) | Vildagliptin
         [Added] Telmis 20 (Tablet)
-        Lab Tests (Ordered): None
-        Now, based on the following conversation and hints, please generate a clinical note:
+        Now, based on the following conversation, please generate a clinical note:
         
         ### Conversation Transcript
-        {transcript}
-        
-        ### Doctor's Hint
-        {input}`,
+        {transcript}`,
 });
 
 const cdsHelper = new PromptTemplate({

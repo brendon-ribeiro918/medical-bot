@@ -5,7 +5,7 @@ interface Props {
 }
 
 export default function AAD({ result }: Props) {
-  console.log(22222, result);
+  console.log("AAD_result", result);
   return (
     <div className="relative h-[100%] w-[100%]">
       <div className="min-h-[325px]">

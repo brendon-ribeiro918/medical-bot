@@ -11,40 +11,39 @@ import { fetchData } from "@/utils/api";
 interface Props {
   recordAllowed: boolean;
   setAADResult: React.Dispatch<React.SetStateAction<any>>;
+  setSummary: React.Dispatch<React.SetStateAction<any>>;
+  isNewRecord: boolean;
+  setIsNewRecord: Function;
 }
 
-export default function Transcript({ recordAllowed, setAADResult }: Props) {
-  console.log("recordAllowed===========>", recordAllowed);
-  const [voiceHistory, setVoiceHistory] = useState<History[]>([]);
+export default function Transcript({
+  recordAllowed,
+  setAADResult,
+  setSummary,
+  isNewRecord,
+  setIsNewRecord,
+}: Props) {
   const [history, setHistory] = useState<History[]>([]);
-
+  const [isReady, setIsReady] = useState<boolean>(false);
   const [isTranslating, setIsTranslating] = useState<boolean>(false);
-  const { recognizedText, isRecording, startSpeechRecognition } =
-    useSpeechRecognition();
+  const {
+    recognizedText,
+    isRecording,
+    startSpeechRecognition,
+    stopSpeechRecognition,
+  } = useSpeechRecognition();
 
   useEffect(() => {
     if (!isRecording && recognizedText) {
       const time = new Date().toISOString();
       setIsTranslating(false);
-      setVoiceHistory((prev) => [
+      setIsReady(true);
+      setHistory((prev) => [
         ...prev,
         { timestamp: time, patient: recognizedText },
       ]);
     }
   }, [isRecording, recognizedText]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (!isRecording && recognizedText) {
-  //       const time = new Date().toISOString();
-  //       setIsTranslating(false);
-  //       setVoiceHistory((prev) => [
-  //         ...prev,
-  //         { timestamp: time, content: recognizedText },
-  //       ]);
-  //     }
-  //   }, 5000);
-  // }, [isRecording, recognizedText]);
 
   useEffect(() => {
     if (!isRecording && recordAllowed) {
@@ -53,17 +52,34 @@ export default function Transcript({ recordAllowed, setAADResult }: Props) {
   }, [isRecording, recordAllowed]);
 
   useEffect(() => {
+    if (!recordAllowed) {
+      stopSpeechRecognition();
+    }
+  }, [recordAllowed]);
+
+  useEffect(() => {
     if (recognizedText) {
       setIsTranslating(true);
     }
   }, [recognizedText]);
 
   useEffect(() => {
-    if (voiceHistory.length) {
+    if (isReady) {
       setAADResult(undefined);
-      fetchData({ historyData: voiceHistory }, setHistory, setAADResult);
+      setSummary(undefined);
+      setIsReady(false);
+      fetchData({ historyData: history }, setHistory, setAADResult, setSummary);
     }
-  }, [voiceHistory]);
+  }, [isReady]);
+
+  useEffect(() => {
+    if (isNewRecord) {
+      setIsNewRecord(false);
+      setHistory([]);
+      setIsReady(false);
+      setIsTranslating(false);
+    }
+  }, [isNewRecord]);
 
   return (
     <div className="relative h-[100%] w-[100%]">
@@ -90,18 +106,8 @@ export default function Transcript({ recordAllowed, setAADResult }: Props) {
             );
           })}
         </ul>
-        {/* {!isTranslating && (
-          <div>
-             <h1 className="text-black-0 text-fs-5 font-[600] leading-[95%]">
-                  0m ago
-                </h1>
-                <p className="mt-[5px] text-black-3 text-fs-2 font-[400] leading-[95%">
-                  {voiceHistory[voiceHistory.length - 1]["patient"]}
-                </p>
-          </div>
-        )} */}
         {isTranslating && (
-          <div className="mt-2 flex justify-center items-center">
+          <div className="mt-4 flex justify-center items-center">
             <ClipLoader
               loading={true}
               size={20}
