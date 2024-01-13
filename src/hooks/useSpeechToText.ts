@@ -3,20 +3,24 @@
 import { useState, useEffect } from "react";
 
 const useSpeechRecognition = () => {
-  const isBrowserUnsupported =
-    typeof window !== "undefined" &&
-    !("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
   const [recognizedText, setRecognizedText] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const [mediaDeviceErr, setMediaDeviceErr] = useState(
-    isBrowserUnsupported ? "Unsupported Browser" : ""
-  );
+  const [mediaDeviceErr, setMediaDeviceErr] = useState("");
+  const [isBrowserUnsupported, setIsBrowserUnsupported] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsBrowserUnsupported(
+        !("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
+      );
+    }
+  }, []);
 
   if (isBrowserUnsupported) {
     return {
       isRecording,
       isBrowserUnsupported,
-      mediaDeviceErr,
+      mediaDeviceErr: "Unsupported Browser",
       setMediaDeviceErr,
       startSpeechRecognition: () => {},
       stopSpeechRecognition: () => {},
