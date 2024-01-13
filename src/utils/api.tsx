@@ -5,7 +5,7 @@ export const fetchData = (
   setSummary: React.Dispatch<React.SetStateAction<any>>
 ) => {
   window
-    .fetch("http://localhost:3000/api", {
+    .fetch("https://medical-bot.netlify.app/api", {
       method: "POST",
       body: JSON.stringify(bodyData),
       headers: {
