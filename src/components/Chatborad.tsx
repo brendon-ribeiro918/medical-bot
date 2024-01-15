@@ -15,7 +15,7 @@ export default function Chatborad() {
   const [isNewRecord, setIsNewRecord] = useState(false);
   const [AADResult, setAADResult] = useState();
   const [summary, setSummary] = useState();
-  const [recordAllowed, setRrecordAllowed] = useState(true);
+  const [recordAllowed, setRrecordAllowed] = useState(false);
 
   return (
     <div className="font-mulish relative w-[410px] h-[810px] bg-white rounded-br-1 overflow-hidden">

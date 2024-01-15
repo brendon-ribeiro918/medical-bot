@@ -17,7 +17,7 @@ export default function HeaderBar({
   setRrecordAllowed,
   setIsNewRecord,
 }: Props) {
-  const [isRecording, setIsRecording] = useState(true);
+  const [isRecording, setIsRecording] = useState(false);
   const { stopSpeechRecognition, startSpeechRecognition } =
     useSpeechRecognition();
 

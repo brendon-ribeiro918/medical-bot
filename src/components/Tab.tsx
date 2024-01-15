@@ -43,7 +43,9 @@ export default function Tab({
       <li
         className={`py-[12px] cursor-pointer bg-${
           tabIndex === 2 ? "white" : "black-4"
-        } rounded-${tabIndex === 2 ? "br-4" : "0px"}`}
+        } rounded-${tabIndex === 2 ? "br-4" : "0px"} ${
+          recordAllowed ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         style={{ width: "calc(100% - 220px)" }}
         onClick={() => {
           if (!recordAllowed) {

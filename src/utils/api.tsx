@@ -1,6 +1,5 @@
 export const fetchData = (
   bodyData: any,
-  setHistoryState: React.Dispatch<React.SetStateAction<any>>,
   setAADState: React.Dispatch<React.SetStateAction<any>>,
   setSummary: React.Dispatch<React.SetStateAction<any>>
 ) => {
@@ -16,7 +15,6 @@ export const fetchData = (
       return res.text().then((data) => {
         const resObj = JSON.parse(data);
         console.log("response_data===========>", resObj.data);
-        setHistoryState(resObj.data.patient_response_history);
         setAADState({
           possible_diagnosis: resObj.data.possible_diagnosis,
           possible_question: resObj.data.possible_question,

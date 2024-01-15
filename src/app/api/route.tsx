@@ -4,17 +4,13 @@ import {
   cdsHelperDDXChain,
   cdsHelperQAChain,
   clinicalNoteWriterChain,
-  patientInstructorChain,
 } from "@/utils/llms";
 
 export async function POST(request: Request) {
   const { historyData } = await request.json();
   const history: OutputType[] = transformArray(historyData);
   const transcript = combineMessages(history);
-  const patient_response = await patientInstructorChain.call({
-    input: history[history.length - 1]["patient"],
-    history: history.slice(0, -1),
-  });
+
   const possible_diagnosis = await cdsHelperDDXChain.call({
     transcript: transcript,
   });
@@ -24,9 +20,6 @@ export async function POST(request: Request) {
   const summary = await clinicalNoteWriterChain.call({
     transcript: transcript,
   });
-
-  const time = new Date().toISOString();
-  historyData.push({ timestamp: time, paco: patient_response.text });
 
   console.log(
     "historyData===========>",
@@ -44,7 +37,6 @@ export async function POST(request: Request) {
   );
 
   const data = {
-    patient_response_history: historyData,
     possible_diagnosis: possible_diagnosis.text,
     possible_question: possible_question.text,
     summary: summary.text,
