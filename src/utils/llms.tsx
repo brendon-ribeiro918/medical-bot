@@ -9,6 +9,7 @@ const gpt4 = new ChatOpenAI({
   temperature: 0.2,
   streaming: true,
   verbose: true,
+  timeout: 100000,
   openAIApiKey: process.env.OPEN_AI_KEY,
 });
 

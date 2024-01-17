@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { franc } from "franc";
 import { useState, useEffect } from "react";
 
 const useSpeechRecognition = () => {
@@ -71,12 +72,18 @@ const useSpeechRecognition = () => {
     setRecognizedText("");
   };
 
+  const detectLanguage = (transcript: string): string => {
+    // Detect the language of the recognized speech
+    const detectedLanguage: string = franc(transcript);
+    return detectedLanguage;
+  };
+
   const handleSpeechResult = (e: any) => {
     const transcript = Array.from(e.results)
       .map((result: any) => result[0])
       .map((result) => result.transcript)
       .join("");
-
+    console.log("detected language:", detectLanguage(transcript));
     setRecognizedText(transcript);
   };
 

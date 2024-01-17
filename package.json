@@ -13,6 +13,7 @@
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@langchain/openai": "^0.0.11",
+    "franc": "^6.2.0",
     "langchain": "^0.1.2",
     "next": "14.0.4",
     "react": "^18",
