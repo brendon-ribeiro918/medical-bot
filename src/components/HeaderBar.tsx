@@ -45,7 +45,7 @@ export default function HeaderBar({
 
   return (
     <div className="flex justify-between items-center">
-      <h1 className="text-fs-4 text-blue font-montserrat font-[600]">
+      <h1 className="text-fs-5 text-blue font-montserrat font-[800]">
         Doc Copilot
       </h1>
       <div className="ml-20">
@@ -65,7 +65,7 @@ export default function HeaderBar({
         >
           <Image src={StopImg} alt="No Stop image" />
           <p className="pl-[8px] text-white text-fs-1 font-[500] leading-[95%]">
-            Arrêter la consultation
+            Stop consultation
           </p>
         </button>
       ) : (
@@ -75,7 +75,7 @@ export default function HeaderBar({
         >
           <Image src={StartImg} alt="No Start image" />
           <p className="pl-[8px] text-white text-fs-1 font-[500] leading-[95%]">
-            Nouvel enregistrement
+            New recording
           </p>
         </button>
       )}

@@ -7,7 +7,7 @@ import HeaderBar from "@/components/HeaderBar";
 import Tab from "@/components/Tab";
 import Transcript from "@/components/Transcript";
 import AAD from "@/components/AAD";
-import CompleteRendu from "@/components/CompleteRendu";
+import Conclusion from "@/components/Conclusion";
 import CancelImg from "@/assets/images/cancel.svg";
 
 export default function Chatborad() {
@@ -72,7 +72,7 @@ export default function Chatborad() {
           left: tabIndex === 2 ? "0px" : "-100%",
         }}
       >
-        <CompleteRendu result={summary} />
+        <Conclusion result={summary} />
       </div>
     </div>
   );

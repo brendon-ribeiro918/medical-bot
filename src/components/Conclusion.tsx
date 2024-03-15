@@ -6,7 +6,7 @@ interface Props {
   result: any;
 }
 
-export default function CompleteRendu({ result }: Props) {
+export default function Conclusion({ result }: Props) {
   return (
     <div className="relative h-[100%] w-[100%] overflow-y-auto">
       {result && (
@@ -14,7 +14,7 @@ export default function CompleteRendu({ result }: Props) {
           <li className="">
             <div className="flex">
               <h1 className="text-blue text-fs-5 font-[600] leading-[95%] uppercase">
-                motif de visite
+                Reason For Visit
               </h1>
               <div className="ml-[5px]">
                 <button>
@@ -31,7 +31,7 @@ export default function CompleteRendu({ result }: Props) {
           <li className="mt-4">
             <div className="flex">
               <h1 className="text-blue text-fs-5 font-[600] leading-[95%] uppercase">
-                Symptômes
+                Symptoms
               </h1>
               <div className="ml-[5px]">
                 <button>
@@ -53,7 +53,7 @@ export default function CompleteRendu({ result }: Props) {
           <li className="mt-4">
             <div className="flex">
               <h1 className="text-blue text-fs-5 font-[600] leading-[95%] uppercase">
-                HISTOIRE DE LA MALADIE
+                History Of The Disease
               </h1>
               <div className="ml-[5px]">
                 <button>
@@ -75,7 +75,7 @@ export default function CompleteRendu({ result }: Props) {
           <li className="mt-4">
             <div className="flex">
               <h1 className="text-blue text-fs-5 font-[600] leading-[95%] uppercase">
-                Traitements en cours
+                Current Treatments
               </h1>
               <div className="ml-[5px]">
                 <button>
@@ -93,7 +93,7 @@ export default function CompleteRendu({ result }: Props) {
           <li className="mt-4">
             <div className="flex">
               <h1 className="text-blue text-fs-5 font-[600] leading-[95%] uppercase">
-                Conduite a tenir
+                To Behave
               </h1>
               <div className="ml-[5px]">
                 <button>
