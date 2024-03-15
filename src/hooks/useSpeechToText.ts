@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { franc } from "franc";
 import { useState, useEffect } from "react";
 
-const useSpeechRecognition = () => {
+const useSpeechRecognition = (language: string) => {
   const isBrowserUnsupported =
     typeof window === "undefined" ||
     !("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
@@ -27,9 +26,8 @@ const useSpeechRecognition = () => {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
-
   recognition.continuous = true;
-  recognition.lang = "en-US";
+  recognition.lang = language === "english" ? "en-US" : "fr-FR";
   recognition.interimResults = true;
 
   const checkAudioSettings = async () => {
@@ -72,18 +70,11 @@ const useSpeechRecognition = () => {
     setRecognizedText("");
   };
 
-  const detectLanguage = (transcript: string): string => {
-    // Detect the language of the recognized speech
-    const detectedLanguage: string = franc(transcript);
-    return detectedLanguage;
-  };
-
   const handleSpeechResult = (e: any) => {
     const transcript = Array.from(e.results)
       .map((result: any) => result[0])
       .map((result) => result.transcript)
       .join("");
-    console.log("detected language:", detectLanguage(transcript));
     setRecognizedText(transcript);
   };
 

@@ -14,7 +14,6 @@ export const fetchData = (
     .then((res) => {
       return res.text().then((data) => {
         const resObj = JSON.parse(data);
-        console.log("response_data===========>", resObj.data);
         setAADState({
           possible_diagnosis: resObj.data.possible_diagnosis,
           possible_question: resObj.data.possible_question,

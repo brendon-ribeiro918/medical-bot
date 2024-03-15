@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function CompleteRendu({ result }: Props) {
-  console.log("summary_result", result);
   return (
     <div className="relative h-[100%] w-[100%] overflow-y-auto">
       {result && (

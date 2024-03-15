@@ -11,6 +11,7 @@ import CompleteRendu from "@/components/CompleteRendu";
 import CancelImg from "@/assets/images/cancel.svg";
 
 export default function Chatborad() {
+  const [language, setLanguage] = useState("english");
   const [tabIndex, setTabIndex] = useState(0);
   const [isNewRecord, setIsNewRecord] = useState(false);
   const [AADResult, setAADResult] = useState();
@@ -29,6 +30,7 @@ export default function Chatborad() {
           setTabIndex={setTabIndex}
           setRrecordAllowed={setRrecordAllowed}
           setIsNewRecord={setIsNewRecord}
+          setLanguage={setLanguage}
         />
       </div>
       <div className="mt-[16px] w-[370px] mx-[auto]">
@@ -51,6 +53,7 @@ export default function Chatborad() {
           recordAllowed={recordAllowed}
           isNewRecord={isNewRecord}
           setIsNewRecord={setIsNewRecord}
+          language={language}
         />
       </div>
       <div
