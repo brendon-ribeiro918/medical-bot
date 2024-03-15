@@ -58,7 +58,7 @@ export default function Tab({
             tabIndex === 2 ? "blue" : "black-2"
           } text-fs-5 font-[600]`}
         >
-          Complete-rendu
+          Conclusion
         </p>
       </li>
     </ul>
