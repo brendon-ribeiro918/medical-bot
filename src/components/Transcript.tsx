@@ -13,6 +13,7 @@ interface Props {
   setSummary: React.Dispatch<React.SetStateAction<any>>;
   isNewRecord: boolean;
   setIsNewRecord: Function;
+  language: string;
 }
 
 export default function Transcript({
@@ -21,6 +22,7 @@ export default function Transcript({
   setSummary,
   isNewRecord,
   setIsNewRecord,
+  language,
 }: Props) {
   const [history, setHistory] = useState<History[]>([]);
   const [val, setVal] = useState<string>("");
@@ -31,7 +33,7 @@ export default function Transcript({
     isRecording,
     startSpeechRecognition,
     stopSpeechRecognition,
-  } = useSpeechRecognition();
+  } = useSpeechRecognition(language);
 
   const addScript = () => {
     if (recordAllowed) {
@@ -90,13 +92,10 @@ export default function Transcript({
   useEffect(() => {
     if (isReady && history.length > 0) {
       setIsReady(false);
-      setAADResult(undefined);
-      setSummary(undefined);
       fetchData({ historyData: history }, setAADResult, setSummary);
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isReady, history]);
 
-  // console.log("history", history, isReady, recognizedText, isRecording);
   return (
     <div className="relative h-[100%] w-[100%]">
       <div
