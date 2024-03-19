@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 
-const useSpeechRecognition = (language: string) => {
+const useSpeechRecognition = () => {
   const isBrowserUnsupported =
     typeof window === "undefined" ||
     !("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
@@ -27,7 +27,7 @@ const useSpeechRecognition = (language: string) => {
     window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   recognition.continuous = true;
-  recognition.lang = language === "english" ? "en-US" : "fr-FR";
+  recognition.lang = "en-US";
   recognition.interimResults = true;
 
   const checkAudioSettings = async () => {

@@ -13,7 +13,6 @@ interface Props {
   setSummary: React.Dispatch<React.SetStateAction<any>>;
   isNewRecord: boolean;
   setIsNewRecord: Function;
-  language: string;
 }
 
 export default function Transcript({
@@ -22,7 +21,6 @@ export default function Transcript({
   setSummary,
   isNewRecord,
   setIsNewRecord,
-  language,
 }: Props) {
   const [history, setHistory] = useState<History[]>([]);
   const [val, setVal] = useState<string>("");
@@ -33,7 +31,7 @@ export default function Transcript({
     isRecording,
     startSpeechRecognition,
     stopSpeechRecognition,
-  } = useSpeechRecognition(language);
+  } = useSpeechRecognition();
 
   const addScript = () => {
     if (recordAllowed) {
